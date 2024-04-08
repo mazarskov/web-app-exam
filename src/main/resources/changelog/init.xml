@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="max.azarskov" id="init-schema">
+        <sql splitStatements="false">
+            CREATE TABLE games
+            (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(100),
+                description TEXT
+
+            );
+        </sql>
+    </changeSet>
+    <changeSet author="maksim.azarskov" id="create-games-table">
+        <sql splitStatements="false">
+            CREATE TABLE users
+            (
+                id          SERIAL PRIMARY KEY,
+                name        VARCHAR(100),
+                password    TEXT,
+                basket      SMALLINT
+            );
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>
