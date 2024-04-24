@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/api/users/adduser")
-    public String postMethodName(@RequestBody CreateUserData user) {
-        return "Account created with id: " + userService.create(user).getId();
+    public UserData postMethodName(@RequestBody CreateUserData user) {
+        return userService.create(user);
     }
 
     @GetMapping("/api/users/{user_id}/addtobasket/{game_id}")

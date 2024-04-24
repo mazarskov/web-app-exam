@@ -52,8 +52,8 @@ public class CatalogueController {
     }
 
     @PostMapping("/api/catalogue/addgame")
-    public String postMethodName(@RequestBody CreateGameData game) {        
-        return "Game created with id: " + catalogueService.create(game).getId();
+    public GameData postMethodName(@RequestBody CreateGameData game) {        
+        return catalogueService.create(game);
     }
     @GetMapping("/api/catalogue/deletegame/{game_id}")
     public String deleteGameById(@PathVariable Long game_id) {
