@@ -17,6 +17,7 @@ public class UserMapper {
         User user = new User();
         user.setName(request.getName());
         user.setPassword(request.getPassword());
+        user.setBasket(request.getBasket());
         return user;
     }
 }

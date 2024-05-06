@@ -6,4 +6,5 @@ import lombok.Data;
 public class CreateUserData {
     private String name;
     private String password;
+    private int basket;
 }

@@ -26,5 +26,11 @@ public class UserService {
             .map(UserMapper::toDto)
             .toList();
     }
+    public User getById(Long id) {
+        return usersRepository.findAllById(id);
+    }
+    public User addGameToBasket(Integer game_id, Long user_id) {
+        return usersRepository.addGameToBasket(game_id, user_id);
+    }
 
 }

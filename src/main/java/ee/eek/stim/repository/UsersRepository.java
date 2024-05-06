@@ -15,4 +15,9 @@ public interface UsersRepository extends CrudRepository<User, Long> {
             select * from users where id = :id;
             """)
     User findAllById(Long id);
+
+    @Query("""
+            UPDATE users SET basket = :game_id WHERE id = :user_id RETURNING *;
+            """)
+    User addGameToBasket(Integer game_id, Long user_id);
 }

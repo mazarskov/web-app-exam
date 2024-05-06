@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ee.eek.stim.data.CreateUserData;
 import ee.eek.stim.data.UserData;
+import ee.eek.stim.models.User;
 import ee.eek.stim.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -27,14 +29,20 @@ public class UserController {
         return userService.getAll();
     }
 
+    @GetMapping("/api/users/{user_id}")
+    public User getMethodName(@PathVariable Long user_id) {
+        return userService.getById(user_id);
+    }
+    
+
     @PostMapping("/api/users/adduser")
     public UserData postMethodName(@RequestBody CreateUserData user) {
         return userService.create(user);
     }
 
     @GetMapping("/api/users/{user_id}/addtobasket/{game_id}")
-    public String addToBasket(@PathVariable Long user_id, Long game_id) {
-        return "Not ready";
+    public User addToBasket(@PathVariable Long user_id, Integer game_id) {
+        return userService.addGameToBasket(game_id, user_id);
     }
     
     
