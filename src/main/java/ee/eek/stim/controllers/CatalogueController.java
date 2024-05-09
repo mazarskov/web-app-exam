@@ -10,10 +10,12 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -42,7 +44,7 @@ public class CatalogueController {
     }
     
     @GetMapping("/api/catalogue")
-    public List<GameData> getGames() {
+    public List<GameData> getGames(@RequestParam Integer token) {
         return catalogueService.getAll();
     }
 
@@ -55,8 +57,8 @@ public class CatalogueController {
     public GameData postMethodName(@RequestBody CreateGameData game) {        
         return catalogueService.create(game);
     }
-    @GetMapping("/api/catalogue/deletegame/{game_id}")
-    public String deleteGameById(@PathVariable Long game_id) {
+    @DeleteMapping("/api/catalogue/deletegame/{game_id}")
+    public Game deleteGameById(@PathVariable Long game_id) {
         return catalogueService.deleteGame(game_id);
     }
     

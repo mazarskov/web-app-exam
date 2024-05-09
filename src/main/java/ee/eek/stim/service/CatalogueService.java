@@ -29,9 +29,9 @@ public class CatalogueService {
     public Game getById(Long id) {
         return gamesRepository.findAllById(id);
     }
-    public String deleteGame(Long id) {
+    public Game deleteGame(Long id) {
         Game game = gamesRepository.findAllById(id);
         gamesRepository.delete(game);
-        return "Succesfully deleted";
+        return game;
     }
 }
