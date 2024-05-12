@@ -46,4 +46,19 @@ public class CatalogueService {
         }
         return listOfGames;
     }
+    //1 - to change title, 2 - to change description
+    public Game updateGameData(Long id, String newData, Integer selection) {
+        Game game = getById(id);
+        if (selection == 1) {
+            game.setTitle(newData);
+            Game updatedGame = gamesRepository.save(game);
+            return updatedGame;
+        } else if (selection == 2) {
+            game.setDescription(newData);
+            Game updatedGame = gamesRepository.save(game);
+            return updatedGame;
+        } else {
+            return game;
+        }
+    }
 }
