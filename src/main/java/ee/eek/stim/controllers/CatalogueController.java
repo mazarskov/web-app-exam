@@ -6,6 +6,7 @@ import ee.eek.stim.data.CreateGameData;
 import ee.eek.stim.data.GameData;
 import ee.eek.stim.models.Game;
 import ee.eek.stim.service.CatalogueService;
+import ee.eek.stim.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CatalogueController {
     
     private final CatalogueService catalogueService;
+    private final UserService userService;
 
     GameData gameData = new GameData();
     
@@ -44,26 +46,46 @@ public class CatalogueController {
     }
     
     @GetMapping("/api/catalogue")
-    public List<GameData> getGames(@RequestParam Integer token) {
-        return catalogueService.getAll();
+    public List<GameData> getGames(@RequestParam Long token) {
+        boolean isValid = userService.validateUser(token);
+        if (isValid) {
+            return catalogueService.getAll();
+        } else {
+            return null;
+        }
     }
 
     @GetMapping("/api/catalogue/{game_id}")
-    public Game getGameInfo(@PathVariable Long game_id) {
-        return catalogueService.getById(game_id);
+    public Game getGameInfo(@PathVariable Long game_id, @RequestParam Long token) {
+        if (userService.validateUser(token)) {
+            return catalogueService.getById(game_id);
+        } else {
+            return null;
+        }
     }
 
     @PostMapping("/api/catalogue/addgame")
-    public GameData postMethodName(@RequestBody CreateGameData game) {        
-        return catalogueService.create(game);
+    public GameData postMethodName(@RequestBody CreateGameData game, @RequestParam Long token) {        
+        if (userService.validateUser(token)) {
+            return catalogueService.create(game);
+        } else {
+            return null;
+        }
     }
     @DeleteMapping("/api/catalogue/deletegame/{game_id}")
-    public Game deleteGameById(@PathVariable Long game_id) {
-        return catalogueService.deleteGame(game_id);
+    public Game deleteGameById(@PathVariable Long game_id, @RequestParam Long token) {
+        if (userService.validateUser(token)) {
+            return catalogueService.deleteGame(game_id);
+        } else {
+            return null;
+        }
     }
-    
-
-
-    
-
+    @GetMapping("/api/catalogue/list")
+    public List<Game> listBasket(@RequestParam Long token, @RequestParam Integer basket) {
+        if (userService.validateUser(token)) {
+            return catalogueService.listFromBasket(basket);
+        } else {
+            return null;
+        }
+    }
 }

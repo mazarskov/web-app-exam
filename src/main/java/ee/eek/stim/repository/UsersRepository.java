@@ -20,4 +20,10 @@ public interface UsersRepository extends CrudRepository<User, Long> {
             UPDATE users SET basket = :game_id WHERE id = :user_id RETURNING *;
             """)
     User addGameToBasket(Integer game_id, Long user_id);
+
+    @Query("SELECT name FROM users;")
+    List<String> listNames();
+
+    @Query("SELECT * FROM users WHERE name = :username AND password = :password;")
+    User findUser(String username, String password);
 }

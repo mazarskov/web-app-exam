@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ee.eek.stim.data.CreateUserData;
 import ee.eek.stim.data.UserData;
-import ee.eek.stim.mappers.UserMapper;
 import ee.eek.stim.models.User;
 import ee.eek.stim.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -56,15 +55,21 @@ public class UserController {
 
     @PutMapping("api/users/{user_id}/add/game")
     public ResponseEntity<UserData> putMethodName(@PathVariable Long user_id, @RequestParam Integer game) {
-        User updatedUser = userService.updateUserBasket(user_id, game);
-        UserData updatedUserData = UserMapper.toDto(updatedUser);
-        return ResponseEntity.ok(updatedUserData);
+        return userService.addToBasket(user_id, game);
     }
     
     @PutMapping("api/users/{user_id}/clearbasket")
     public ResponseEntity<UserData> clearBasket(@PathVariable Long user_id) {
-        User updatedUser = userService.updateUserBasket(user_id, 0);
-        UserData updatedUserData = UserMapper.toDto(updatedUser);
-        return ResponseEntity.ok(updatedUserData);
+        return userService.addToBasket(user_id, 0);
+    }
+
+    @GetMapping("/api/users/usernames")
+    public List<String> getMethodName() {
+        return userService.listUsernames();
+    }
+
+    @GetMapping("/api/users/user")
+    public User getUser(@RequestParam String username, @RequestParam String password) {
+        return userService.findUser(username, password);
     }
 }

@@ -10,6 +10,7 @@ import ee.eek.stim.mappers.GameMapper;
 import ee.eek.stim.models.Game;
 import ee.eek.stim.repository.GamesRepository;
 import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,16 @@ public class CatalogueService {
         Game game = gamesRepository.findAllById(id);
         gamesRepository.delete(game);
         return game;
+    }
+    public List<Game> listFromBasket(Integer basket) {
+        List<Game> listOfGames = new ArrayList<>();
+        String stringBasket = String.valueOf(basket);
+        for (int i = 0; i < stringBasket.length(); i++) {
+            Integer singleItem = Character.getNumericValue(stringBasket.charAt(i));
+            Long gameId = Long.valueOf(singleItem);
+            Game game = gamesRepository.findAllById(gameId);
+            listOfGames.add(game);
+        }
+        return listOfGames;
     }
 }
