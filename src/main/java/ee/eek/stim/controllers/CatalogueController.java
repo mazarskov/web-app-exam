@@ -67,20 +67,13 @@ public class CatalogueController {
     }
 
     @PostMapping("/api/catalogue/addgame")
-    public GameData postMethodName(@RequestBody CreateGameData game, @RequestParam Long token) {        
-        if (userService.validateUser(token)) {
-            return catalogueService.create(game);
-        } else {
-            return null;
-        }
+    public GameData postMethodName(@RequestBody CreateGameData game) {        
+        return catalogueService.create(game);
+
     }
     @DeleteMapping("/api/catalogue/deletegame/{game_id}")
-    public Game deleteGameById(@PathVariable Long game_id, @RequestParam Long token) {
-        if (userService.validateUser(token)) {
-            return catalogueService.deleteGame(game_id);
-        } else {
-            return null;
-        }
+    public Game deleteGameById(@PathVariable Long game_id) {
+        return catalogueService.deleteGame(game_id);
     }
     @GetMapping("/api/catalogue/list")
     public List<Game> listBasket(@RequestParam Long token, @RequestParam Integer basket) {
